@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Runs the tests of the package without Unity. The trailing "~" in the folder name hides this
+    folder from the Unity editor; `dotnet test DotnetTests~` is all a CI job needs.
+  -->
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <!-- Unity 6 compiles packages as C# 9. Holding this project to the same level keeps newer syntax out of the shared tests. -->
+    <LangVersion>9.0</LangVersion>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+    <RootNamespace>IosExportFixes.Tests</RootNamespace>
+    <AssemblyName>IosExportFixes.DotnetTests</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- The same test files Unity compiles, next to the tests that need a Ruby interpreter (this folder). -->
+    <Compile Include="../Tests/Editor/Core/**/*.cs" LinkBase="Tests/Editor/Core" />
+    <Compile Remove="Core/**" />
+    <ProjectReference Include="Core/IosExportFixes.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="podfile_harness.rb" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+    <PackageReference Include="NUnit" Version="3.14.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.6.0" />
+  </ItemGroup>
+
+</Project>

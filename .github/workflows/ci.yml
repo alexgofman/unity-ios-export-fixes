@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      DOTNET_NOLOGO: "1"
+      DOTNET_CLI_TELEMETRY_OPTOUT: "1"
+      # RubyChecks.cs skips itself when there is no ruby; here a missing ruby has to fail the job.
+      REQUIRE_RUBY: "1"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+
+      # Plain .NET: the Podfile patcher has no Unity dependency, so no Unity licence is needed.
+      - name: Test
+        run: dotnet test DotnetTests~ --configuration Release

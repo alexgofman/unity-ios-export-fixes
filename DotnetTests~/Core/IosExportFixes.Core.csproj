@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    The part of the package that has no Unity dependency (Editor/Core), built as a library of its
+    own. .NET Standard 2.1 and C# 9 are what Unity 6 gives a package, so an API or syntax that Unity
+    does not have fails here. Being a separate assembly, it also keeps the tests away from
+    internal members, exactly as the test assembly in Unity is.
+  -->
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>9.0</LangVersion>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <RootNamespace>IosExportFixes</RootNamespace>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="../../Editor/Core/**/*.cs" LinkBase="Editor/Core" />
+  </ItemGroup>
+
+</Project>

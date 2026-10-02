@@ -1,0 +1,20 @@
+{
+  "name": "com.alexgofman.ios-export-fixes",
+  "version": "0.1.0",
+  "displayName": "iOS Export Fixes",
+  "description": "Editor build hooks for iOS exports that use CocoaPods through External Dependency Manager for Unity. Raises every pod to the app's minimum iOS version, embeds dynamic-framework pods in the application target, and writes CFBundleLocalizations to Info.plist.",
+  "unity": "6000.0",
+  "keywords": [
+    "ios",
+    "xcode",
+    "cocoapods",
+    "podfile",
+    "edm4u",
+    "build",
+    "postprocessbuild"
+  ],
+  "author": {
+    "name": "Alex Gofman"
+  },
+  "license": "MIT"
+}
